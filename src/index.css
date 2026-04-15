@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+@theme {
+  --color-slate-950: #020617;
+  --color-slate-900: #050b14;
+  --color-slate-800: #0f172a;
+  --color-slate-700: #1e293b;
+  --color-slate-600: #334155;
+  --color-slate-500: #475569;
+  --color-slate-400: #64748b;
+  --color-slate-300: #94a3b8;
+  --color-slate-200: #cbd5e1;
+  --color-slate-100: #f1f5f9;
+  
+  --color-indigo-400: #818cf8;
+  --color-indigo-500: #6366f1;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-700: #4338ca;
+  
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-cyan-400: #22d3ee;
+  --color-amber-400: #fbbf24;
+  --color-orange-400: #fb923c;
+
+  --color-transparent: transparent;
+  --color-white: #ffffff;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased overflow-x-hidden m-0 p-0 selection:bg-indigo-500/30 selection:text-indigo-200;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-indigo-500;
+  }
+}
+
+/* ─── Gradient Text ─── */
+.gradient-text {
+  @apply text-transparent bg-clip-text;
+  background-image: linear-gradient(135deg, #818cf8 0%, #c084fc 40%, #34d399 100%);
+}
+
+/* ─── Shimmer Text ─── */
+.shimmer-text {
+  background: linear-gradient(
+    110deg,
+    #818cf8 0%,
+    #c084fc 25%,
+    #e0e7ff 50%,
+    #c084fc 75%,
+    #818cf8 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 200% center; }
+  50% { background-position: 0% center; }
+}
+
+/* ─── Glass Card (clean, no mask tricks) ─── */
+.glass-card {
+  @apply bg-slate-800/30 backdrop-blur-xl border border-white/[0.06] shadow-[0_8px_32px_0_rgba(0,0,0,0.4)];
+}
+
+/* ─── Accent Bar Card ─── */
+.accent-card {
+  @apply relative bg-slate-800/40 border border-slate-700/40 rounded-xl overflow-hidden transition-all duration-400;
+}
+.accent-card:hover {
+  @apply bg-slate-800/60 border-slate-600/50 -translate-y-0.5;
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.3);
+}
+
+/* Left accent bar */
+.accent-left::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent-gradient);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.accent-left:hover::before {
+  opacity: 1;
+}
+
+/* Top accent bar */
+.accent-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: var(--accent-gradient);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.accent-top:hover::before {
+  opacity: 1;
+}
+
+/* Accent gradient presets */
+.accent-indigo { --accent-gradient: linear-gradient(180deg, #818cf8, #6366f1); }
+.accent-emerald { --accent-gradient: linear-gradient(180deg, #34d399, #10b981); }
+.accent-purple { --accent-gradient: linear-gradient(180deg, #c084fc, #a855f7); }
+.accent-blue { --accent-gradient: linear-gradient(180deg, #60a5fa, #3b82f6); }
+.accent-pink { --accent-gradient: linear-gradient(180deg, #f472b6, #ec4899); }
+.accent-amber { --accent-gradient: linear-gradient(180deg, #fbbf24, #f59e0b); }
+.accent-cyan { --accent-gradient: linear-gradient(180deg, #22d3ee, #06b6d4); }
+.accent-violet { --accent-gradient: linear-gradient(180deg, #a78bfa, #8b5cf6); }
+.accent-orange { --accent-gradient: linear-gradient(180deg, #fb923c, #f97316); }
+
+/* Horizontal accent gradients for left bars */
+.accent-indigo.accent-left { --accent-gradient: linear-gradient(to bottom, #818cf8, #6366f1); }
+.accent-emerald.accent-left { --accent-gradient: linear-gradient(to bottom, #34d399, #10b981); }
+.accent-purple.accent-left { --accent-gradient: linear-gradient(to bottom, #c084fc, #a855f7); }
+.accent-blue.accent-left { --accent-gradient: linear-gradient(to bottom, #60a5fa, #3b82f6); }
+.accent-pink.accent-left { --accent-gradient: linear-gradient(to bottom, #f472b6, #ec4899); }
+
+/* ─── Animations ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.06; transform: scale(1); }
+  50% { opacity: 0.12; transform: scale(1.05); }
+}
+
+@keyframes pulse-glow-slow {
+  0%, 100% { opacity: 0.04; transform: scale(1); }
+  50% { opacity: 0.1; transform: scale(1.03); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow-slow {
+  animation: pulse-glow-slow 6s ease-in-out infinite;
+}
+
+/* ─── Skill Tag ─── */
+.skill-tag {
+  @apply px-4 py-2 bg-slate-900/60 text-slate-300 text-sm font-medium rounded-xl border border-slate-700/60 transition-all duration-300 cursor-default;
+}
+.skill-tag:hover {
+  @apply bg-indigo-500/10 text-indigo-300 border-indigo-500/40 -translate-y-0.5;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.12);
+}
+
+/* ─── Section Divider ─── */
+.section-divider {
+  @apply w-full h-px;
+  background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.15), rgba(192, 132, 252, 0.15), transparent);
+}
+
+/* ─── Contact Item ─── */
+.contact-item {
+  @apply relative flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 rounded-xl bg-slate-800/30 border border-slate-700/40 w-full overflow-hidden transition-all duration-300;
+}
+.contact-item:hover {
+  @apply bg-slate-800/50 border-slate-600/50;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Noise Overlay ─── */
+.noise-bg::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.012;
+  z-index: 1000;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
